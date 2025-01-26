@@ -25,4 +25,4 @@
    npm install
 3. Запустіть сервер для розробки
    ```bash
-      npm start
+   npm start
