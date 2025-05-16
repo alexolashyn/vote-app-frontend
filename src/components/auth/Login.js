@@ -3,8 +3,10 @@ import {connect} from 'react-redux';
 import {Link, Navigate} from 'react-router-dom';
 import {login} from "../../actions/auth";
 import PropTypes from 'prop-types';
+import {useTranslation} from 'react-i18next';
 
 const Login = ({login, isAuthenticated}) => {
+    const {t} = useTranslation();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -25,15 +27,16 @@ const Login = ({login, isAuthenticated}) => {
     };
     return (
         <section className='container'>
-            <h1 className='large text-primary'>{'Sign In'}</h1>
-            <p className='lead'>
-                <i></i> {'Sign into your account'}
-            </p>
+
             <form className='form' onSubmit={(el) => onSubmit(el)}>
+                <h1 className='large text-primary'>{t('login')}</h1>
+                <p className='lead'>
+                    <i></i> {t('loginMessage')}
+                </p>
                 <div className='form-group'>
                     <input
                         type='email'
-                        placeholder='Email Address'
+                        placeholder={t('emailPlaceholder')}
                         name='email'
                         value={email}
                         onChange={(el) => onChange(el)}
@@ -44,7 +47,7 @@ const Login = ({login, isAuthenticated}) => {
                 <div className='form-group'>
                     <input
                         type='password'
-                        placeholder='Password'
+                        placeholder={t('passwordPlaceholder')}
                         name='password'
                         value={password}
                         onChange={(el) => onChange(el)}
@@ -55,12 +58,12 @@ const Login = ({login, isAuthenticated}) => {
                 <input
                     type='submit'
                     className='btn btn-primary'
-                    value='Login'
+                    value={t('login')}
                 />
+                <p className='my-1'>
+                    {t('registerSuggestion')} <Link to='/register'>{t('register')}</Link>
+                </p>
             </form>
-            <p className='my-1'>
-                Don't have an account? <Link to='/register'>Register</Link>
-            </p>
         </section>
 
     );
@@ -75,5 +78,5 @@ const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated
 })
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, {login})(Login);
 

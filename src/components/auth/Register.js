@@ -3,8 +3,10 @@ import {Link, Navigate} from 'react-router-dom';
 import {register} from "../../actions/auth";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types';
+import {useTranslation} from 'react-i18next';
 
 const Register = ({isAuthenticated, register}) => {
+    const {t} = useTranslation();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -26,15 +28,16 @@ const Register = ({isAuthenticated, register}) => {
     };
     return (
         <section className='container'>
-            <h1 className='large text-primary'>Register</h1>
-            <p className='lead'>
-                <i></i> Create Your Account
-            </p>
+
             <form className='form' onSubmit={(el) => onSubmit(el)}>
+                <h1 className='large text-primary'>{t('register')}</h1>
+                <p className='lead'>
+                    <i></i> {t('registerMessage')}
+                </p>
                 <div className='form-group'>
                     <input
                         type='email'
-                        placeholder='Email Address'
+                        placeholder={t('emailPlaceholder')}
                         name='email'
                         value={email}
                         onChange={(el) => onChange(el)}
@@ -44,7 +47,7 @@ const Register = ({isAuthenticated, register}) => {
                 <div className='form-group'>
                     <input
                         type='password'
-                        placeholder='Password'
+                        placeholder={t('passwordPlaceholder')}
                         name='password'
                         minLength='8'
                         value={password}
@@ -55,7 +58,7 @@ const Register = ({isAuthenticated, register}) => {
                 <div className='form-group'>
                     <input
                         type='password'
-                        placeholder='Confirm Password'
+                        placeholder={t('passwordConfirmationPlaceholder')}
                         name='password2'
                         minLength='8'
                         value={passwordConfirmation}
@@ -63,11 +66,12 @@ const Register = ({isAuthenticated, register}) => {
                         required
                     />
                 </div>
-                <input type='submit' className='btn btn-primary' value='Register'/>
+                <input type='submit' className='btn btn-primary' value={t('register')}/>
+                <p className='my-1'>
+                    {t('loginSuggestion')} <Link to='/login'>{t('login')}</Link>
+                </p>
             </form>
-            <p className='my-1'>
-                Already have an account? <Link to='/login'>Login</Link>
-            </p>
+
         </section>
     );
 };

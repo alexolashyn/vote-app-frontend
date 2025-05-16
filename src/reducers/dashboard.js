@@ -1,13 +1,16 @@
 import {
     DASHBOARD_SUCCESS,
-    POLL_CREATED,
-    POLL_FAIL,
+    ORG_CREATED,
+    ORG_SUCCESS,
+    ORG_FAIL,
+    POLL_FAIL
 } from '../actions/types';
 
 const initialState = {
-    polls: [],
-    loading: true,
+    orgs: [],
+    org: null,
     error: null,
+    loading: true,
 };
 
 export default function dashboardReducer(state = initialState, action) {
@@ -17,16 +20,23 @@ export default function dashboardReducer(state = initialState, action) {
         case DASHBOARD_SUCCESS:
             return {
                 ...state,
-                polls: payload,
+                orgs: payload,
                 loading: false,
             };
 
-        case POLL_CREATED:
+        case ORG_SUCCESS:
             return {
                 ...state,
-                polls: [...state.polls, payload],
+                org: payload,
+            }
+
+        case ORG_CREATED:
+            return {
+                ...state,
+                orgs: [...state.orgs, payload],
             };
 
+        case ORG_FAIL:
         case POLL_FAIL:
             return {
                 ...state,

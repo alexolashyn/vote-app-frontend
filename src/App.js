@@ -1,3 +1,4 @@
+import './i18n';
 import React, {useEffect} from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
@@ -9,6 +10,9 @@ import Navbar from "./components/layouts/Navbar";
 import Landing from "./components/layouts/Landing";
 import Alerts from './components/layouts/Alerts';
 import Dashboard from "./components/dashboard/Dashboard";
+import Organization from "./components/dashboard/Organization";
+import Vote from "./components/dashboard/Vote";
+import Result from "./components/dashboard/Result";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import store from './store';
 import {auth} from './actions/auth';
@@ -35,6 +39,18 @@ const App = () => {
                     <Route
                         path='dashboard'
                         element={<PrivateRoute component={Dashboard}/>}
+                    />
+                    <Route
+                        path='organizations/:id'
+                        element={<PrivateRoute component={Organization}/>}
+                    />
+                    <Route
+                        path='polls/:id/vote'
+                        element={<PrivateRoute component={Vote}/>}
+                    />
+                    <Route
+                        path='polls/:id/result'
+                        element={<PrivateRoute component={Result}/>}
                     />
                 </Routes>
             </Router>

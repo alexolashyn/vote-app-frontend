@@ -1,23 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
+import GradientBox from "./GradientBox";
 
 const Landing = () => {
+    const {t} = useTranslation();
     return (
         <section className='landing'>
-            <div className='dark-overlay'>
-                <div className='landing-inner'>
-                    <h1 className='x-large'>Vote App</h1>
-                    <p className='lead'>
-                        some catch phrase would be displayed here!
-                    </p>
-                    <div className='buttons'>
-                        <Link to='/register' className='btn btn-primary'>
-                            Register
-                        </Link>
-                        <Link to='/login' className='btn btn-light'>
-                            Login
-                        </Link>
-                    </div>
+            <div className='landing-inner'>
+                <h1 className='x-large'>{t('appDescription')}</h1>
+                <p className='lead'>
+                    {t('appCatchphrase')}
+                </p>
+                <div className="box-container">
+                    <GradientBox text={t('landingSecure')} colorClass="red"/>
+                    <GradientBox text={t('landingTransparent')}  colorClass="blue"/>
+                    <GradientBox text={t('landingDecentralized')}   colorClass="green"/>
                 </div>
             </div>
         </section>

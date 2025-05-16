@@ -3,38 +3,53 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {logout} from '../../actions/auth';
+import {useTranslation} from 'react-i18next';
 
 const Navbar = ({isAuthenticated, logout}) => {
+    const {i18n, t} = useTranslation();
+
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+    };
+
     const authLinks = (
         <ul>
             <li>
-                <a onClick={logout} href='/'>
-                    Logout
-                </a>
+                <Link to='/dashboard'>{t('dashboard')}</Link>
             </li>
             <li>
-                <Link to='/dashboard'>Dashboard</Link>
+                <a onClick={logout} href='/'>
+                    {t('logout')}
+                </a>
             </li>
         </ul>
     );
+
     const guestLinks = (
         <ul>
             <li>
-                <Link to='/register'>Register</Link>
+                <Link to='/register'>{t('register')}</Link>
             </li>
             <li>
-                <Link to='/login'>Login</Link>
+                <Link to='/login'>{t('login')}</Link>
             </li>
         </ul>
     );
+
     return (
-        <nav className='navbar bg-dark'>
-            <h1>
-                <Link to='/'>
-                    <i className='fas fa-code'></i>
-                    Vote App
-                </Link>
-            </h1>
+        <nav className='navbar'>
+
+            <div>
+                <h1>
+                    <Link to='/'>{t('appName')}</Link>
+                </h1>
+                <div className='lang-container'>
+                    <button onClick={() => changeLanguage('en')}>en</button>
+                    <button onClick={() => changeLanguage('uk')} style={{marginLeft: '5px'}}>uk</button>
+                </div>
+
+
+            </div>
             <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
         </nav>
     );
